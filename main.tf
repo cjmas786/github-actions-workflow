@@ -9,3 +9,4 @@ resource "aws_instance" "my_ec2" {
     Name = "hello-ec2"
   }
 }
+

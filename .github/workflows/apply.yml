@@ -16,7 +16,7 @@ jobs:
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
         
       - name: configure aws credentials
@@ -24,12 +24,12 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::094175769936:role/github-assume-role
           role-session-name: samplerolesession
-          aws-region: us-east-1
+      
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 1.0.1
+          terraform_version: 1.4.4
           terraform_wrapper: false
 
       - name: Terraform Init

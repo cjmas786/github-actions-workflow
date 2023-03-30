@@ -9,13 +9,22 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  
+  permissions:
+      id-token: write   
+      contents: read    
+
     
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        
+        name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::094175769936:role/github-assume-role
+          role-session-name: samplerolesession
+          aws-region: us-east-1
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1

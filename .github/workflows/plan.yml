@@ -5,15 +5,15 @@ on:
     branches:
      - Feature
 
+  permissions:
+      id-token: write   
+      contents: read    
+
 jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
   
-  permissions:
-      id-token: write   
-      contents: read    
-
     
     steps:
       - name: Checkout

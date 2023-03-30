@@ -3,7 +3,7 @@ name: Terraform-Plan
 on:
   push:
     branches:
-     - Feature
+     - 'Feature-**'
 permissions:
     id-token: write   
     contents: read    

@@ -1,4 +1,4 @@
-name: DevTest-Terraform-Apply
+name: DevTest-Apply
 
 on:
   push:

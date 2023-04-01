@@ -1,4 +1,4 @@
-name: Terraform-Plann
+name: DevTest-Terraform-Plan
 
 on:
   push:

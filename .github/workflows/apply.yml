@@ -9,6 +9,10 @@ permissions:
     id-token: write   
     contents: read
       
+defaults:
+  run:
+    working-directory: ./DevTest
+    
 jobs:
   terraform:
     name: "Terraform"

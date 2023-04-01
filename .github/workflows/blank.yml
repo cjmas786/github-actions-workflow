@@ -1,0 +1,47 @@
+name: Network-Plan
+
+on:
+  push:
+    branches:
+     - 'Feature-**'
+    paths:
+     - 'Network/**'
+     
+permissions:
+    id-token: write   
+    contents: read    
+    
+defaults:
+  run:
+    working-directory: ./Network    
+
+jobs:
+  terraform:
+    name: "Terraform"
+    runs-on: ubuntu-latest
+  
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::094175769936:role/github-assume-rolenetwork
+          role-session-name: samplerolesession
+          aws-region: us-east-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.4.4
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color

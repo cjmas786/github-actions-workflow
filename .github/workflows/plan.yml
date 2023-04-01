@@ -4,6 +4,9 @@ on:
   push:
     branches:
      - 'Feature-**'
+    paths:
+     - 'DevTest/**'
+     
 permissions:
     id-token: write   
     contents: read    

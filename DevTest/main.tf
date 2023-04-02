@@ -3,7 +3,6 @@ terraform {
     bucket = "mys3sunny"
     key    = "devtest/terraform.tfstate"
     region = "us-east-1"
-    role_arn  = "arn:aws:iam::087234784226:role/assume-role-network-account"
   }
 }
 

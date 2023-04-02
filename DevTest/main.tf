@@ -1,3 +1,13 @@
+terraform {
+  backend "s3" {
+    bucket = "mys3sunny"
+    key    = "devtest/terraform.tfstate"
+    region = "us-east-1"
+    role_arn  = "arn:aws:s3:::mys3sunny"
+  }
+}
+
+
 provider "aws" {
   region     = "us-east-1"
 }

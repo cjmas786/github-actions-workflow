@@ -5,7 +5,8 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "mys3sunny"
-    key    = "devtest/terraform.tfstate"
+    key    = "NetworkStateFile/terraform.tfstate"
+    encrypt   = true
     region = "us-east-1"
   }
 }

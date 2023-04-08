@@ -1,11 +1,12 @@
 name: DevTest-Plan
 
 on:
-  push:
-    branches:
-     - 'Feature-**'
-    paths:
-     - 'DevTest/**'
+  workflow_dispatch:
+  # push:
+  #  branches:
+  #   - 'Feature-**'
+  #  paths:
+  #   - 'DevTest/**'
      
 permissions:
     id-token: write   

@@ -53,7 +53,10 @@ jobs:
         # run only if 'path1' files were changed
       - name: path1 tests
         if: steps.filter.outputs.path1 == 'true'
-        run: echo "helllo"
+        run: echo "vic"
+      - name: path2 tests
+        if: steps.filter.outputs.path2 == 'true'
+        run: echo "eks"
 
       - name: Terraform Init
         id: init

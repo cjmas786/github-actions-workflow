@@ -1,12 +1,12 @@
 name: DevTest-Apply
 
 on:
-  workflow_dispatch:
- # push:
- #   branches:
- #    - main
- #   paths:
- #    - 'DevTest/**'
+ # workflow_dispatch:
+  push:
+    branches:
+     - main
+    paths:
+     - 'DevTest/**'
 
 permissions:
     id-token: write   
@@ -39,6 +39,21 @@ jobs:
         with:
           terraform_version: 1.4.4
           terraform_wrapper: false
+      
+      - name: Setup paths
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+         filters: |
+          path1:
+            - 'DevTest/vic'
+          path2:
+            - 'DevTest/eks'
+
+        # run only if 'path1' files were changed
+      - name: path1 tests
+        if: steps.filter.outputs.path1 == 'true'
+        run: echo "helllo"
 
       - name: Terraform Init
         id: init
@@ -48,5 +63,5 @@ jobs:
         id: plan
         run: terraform plan -no-color
         
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+    #  - name: Terraform Apply
+    #    run: terraform apply -auto-approve

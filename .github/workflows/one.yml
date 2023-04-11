@@ -1,6 +1,6 @@
 name: one-devtest
 
- on:
+on:
   workflow_dispatch
  
 

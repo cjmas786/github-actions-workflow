@@ -12,9 +12,9 @@ permissions:
     id-token: write   
     contents: read
       
-defaults:
-  run:
-    working-directory: ./DevTest/vic
+# defaults:
+ # run:
+  #  working-directory: ./DevTest/vic
     
 jobs:
   terraform:

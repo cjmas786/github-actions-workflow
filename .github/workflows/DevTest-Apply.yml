@@ -46,9 +46,9 @@ jobs:
         with:
          filters: |
           path1:
-            - 'DevTest/vic'
+            - 'DevTest/vic/**'
           path2:
-            - 'DevTest/eks'
+            - 'DevTest/eks/**'
 
         # run only if 'path1' files were changed
       - name: path1 tests

@@ -1,12 +1,14 @@
 name: one-devtest
 
-on:
-  push:
-    branches:
-     - main
-     - 'Feature-**'
-    paths:
-     - 'DevTest/**'
+ workflow_dispatch:
+ 
+# on:
+ # push:
+  #  branches:
+  #   - main
+  #   - 'Feature-**'
+  #  paths:
+  #   - 'DevTest/**'
 
 permissions:
     id-token: write   

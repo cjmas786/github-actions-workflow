@@ -5,8 +5,8 @@ on:
    push:
      branches:
       - main
-    # paths:
-    #  - 'DevTest/**'
+     paths:
+      - 'DevTest/**'
 
 permissions:
     id-token: write   

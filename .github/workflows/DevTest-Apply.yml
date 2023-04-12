@@ -25,6 +25,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      
         
         
       - name: configure aws credentials
@@ -54,19 +55,18 @@ jobs:
         # run only if 'path1' files were changed
       - name: path1 tests
         if: steps.filter.outputs.path1 == 'true' 
-        run: echo "vic"
+        run: cd ./DevTest/vic
       
           
       - name: path2 tests
         if: steps.filter.outputs.path2 == 'true'
-        run: echo "eks"
+        run: cd ./DevTest/eks
       
         
       
         
 
       - name: Terraform Init
-        working-directory: ./DevTest/vic
         id: init
         run: terraform init
 

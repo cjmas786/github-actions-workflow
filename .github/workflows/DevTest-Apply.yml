@@ -5,8 +5,8 @@ on:
    push:
      branches:
       - main
-     paths:
-      - 'DevTest/**'
+    # paths:
+    #  - 'DevTest/**'
 
 permissions:
     id-token: write   
@@ -57,7 +57,7 @@ jobs:
         if: steps.filter.outputs.path1 == 'true' 
         run: |
           cd vic
-          Terraform Plan
+          pwd
       
           
       - name: path2 tests

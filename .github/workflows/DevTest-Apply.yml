@@ -61,7 +61,8 @@ jobs:
           
       - name: path2 tests
         if: steps.filter.outputs.path2 == 'true'
-        run: cd ./DevTest/eks
+        run: |
+          cd eks
       
         
       

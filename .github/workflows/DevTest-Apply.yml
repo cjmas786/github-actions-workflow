@@ -53,7 +53,6 @@ jobs:
 
         # run only if 'path1' files were changed
       - name: path1 tests
-        working-directory: ./DevTest/vic
         if: steps.filter.outputs.path1 == 'true' 
         run: echo "vic"
       
@@ -67,6 +66,7 @@ jobs:
         
 
       - name: Terraform Init
+        working-directory: ./DevTest/vic
         id: init
         run: terraform init
 

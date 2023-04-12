@@ -57,25 +57,28 @@ jobs:
         if: steps.filter.outputs.path1 == 'true' 
         run: |
           cd vic
-          pwd
           terraform init
           terraform plan
+          terraform apply -auto-approve
       
           
       - name: path2 tests
         if: steps.filter.outputs.path2 == 'true'
         run: |
           cd eks
+          terraform init
+          terraform plan
+          terraform apply -auto-approve
       
         
       
-      - name: Terraform Init
-        id: init
-        run: terraform init
+  #     - name: Terraform Init
+   #      id: init
+    #     run: terraform init
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
+    #   - name: Terraform Plan
+     #    id: plan
+     #    run: terraform plan -no-color
         
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+    #   - name: Terraform Apply
+    #     run: terraform apply -auto-approve

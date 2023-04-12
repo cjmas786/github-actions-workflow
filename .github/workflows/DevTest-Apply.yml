@@ -12,9 +12,9 @@ permissions:
     id-token: write   
     contents: read
       
-# defaults:
- # run:
-  #  working-directory: ./DevTest/vic
+defaults:
+  run:
+    working-directory: ./DevTest
 
       
 jobs:
@@ -55,7 +55,8 @@ jobs:
         # run only if 'path1' files were changed
       - name: path1 tests
         if: steps.filter.outputs.path1 == 'true' 
-        run: cd ./DevTest/vic
+        run: |
+          cd ./DevTest/vic
       
           
       - name: path2 tests

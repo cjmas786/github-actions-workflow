@@ -58,6 +58,8 @@ jobs:
         run: |
           cd vic
           pwd
+          terraform init
+          terraform plan
       
           
       - name: path2 tests

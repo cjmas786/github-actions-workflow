@@ -56,7 +56,7 @@ jobs:
       - name: path1 tests
         if: steps.filter.outputs.path1 == 'true' 
         run: |
-          cd ./DevTest/vic
+          cd vic
       
           
       - name: path2 tests

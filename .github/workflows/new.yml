@@ -1,12 +1,12 @@
 name: DevTest-Apply
 
 on:
- # workflow_dispatch:
-  push:
-    branches:
-     - main
-    paths:
-     - 'DevTest/**'
+  workflow_dispatch:
+ # push:
+ #   branches:
+ #    - main
+ #   paths:
+ #    - 'DevTest/**'
 
 permissions:
     id-token: write   

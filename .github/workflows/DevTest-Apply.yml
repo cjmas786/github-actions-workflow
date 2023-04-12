@@ -1,12 +1,12 @@
 name: DevTest-Apply
 
 on:
- workflow_dispatch:
-#   push:
- #    branches:
-  #    - main
-  #   paths:
-   #   - 'DevTest/**'
+ # workflow_dispatch:
+   push:
+     branches:
+      - main
+     paths:
+      - 'DevTest/**'
 
 permissions:
     id-token: write   
@@ -53,16 +53,17 @@ jobs:
 
         # run only if 'path1' files were changed
       - name: path1 tests
+        working-directory: ./DevTest/vic
         if: steps.filter.outputs.path1 == 'true' 
         run: echo "vic"
-        working-directory: ./DevTest/vic
+      
           
       - name: path2 tests
         if: steps.filter.outputs.path2 == 'true'
         run: echo "eks"
-        working-directory: ./DevTest/eks
+      
         
-        
+      
         
 
       - name: Terraform Init

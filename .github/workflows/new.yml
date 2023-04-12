@@ -51,7 +51,7 @@ jobs:
         run: terraform apply -auto-approve
 
 
- terraform-eks:
+  terraform-eks:
     name: "Terraform-eks"
     runs-on: ubuntu-latest 
     defaults:

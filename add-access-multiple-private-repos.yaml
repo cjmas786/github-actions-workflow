@@ -1,0 +1,20 @@
+steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Checkout private repo1
+        uses: actions/checkout@v2
+        with:
+          repository: org/private-repo1
+          ref: main # or specify the desired branch or commit
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Checkout private repo2
+        uses: actions/checkout@v2
+        with:
+          repository: org/private-repo2
+          ref: main # or specify the desired branch or commit
+          token: ${{ secrets.GITHUB_TOKEN }}

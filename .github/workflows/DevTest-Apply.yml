@@ -1,7 +1,8 @@
+# Workflow Name
 name: DevTest-Apply
 
 on:
- # workflow_dispatch:
+  # Triggers the workflow on push when both conditions (branch & paths) match
   push:
     branches:
      - main
@@ -11,67 +12,86 @@ on:
 permissions:
     id-token: write   
     contents: read
-      
-# defaults:
- # run:
-  #  working-directory: ./DevTest/vic
 
-      
+
+
+#  This workflow contains a single job called "Terraform"    
 jobs:
   terraform:
     name: "Terraform"
-    runs-on: ubuntu-latest 
+    # job will run on ubuntu runner
+    runs-on: ubuntu-latest      
     
+    # This job has the following steps
     steps:
+
+      # Checks-out your repository 
       - name: Checkout
         uses: actions/checkout@v3
-        
-        
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::094175769936:role/github-assume-role
-          role-session-name: samplerolesession
-          aws-region: us-east-1
-      
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.4.4
-          terraform_wrapper: false
-      
+         repository: NDB-ro/AWS-Infrastructure-code
+         token: ${{secrets.TOKEN}}
+                 
+       # Identify which folder has changed
       - name: Setup paths
         uses: dorny/paths-filter@v2
         id: filter
         with:
          filters: |
-          path1:
-            - 'DevTest/vic/**'
-          path2:
-            - 'DevTest/eks/**'
+          vpc-orchestration:
+            - 'DevTest/vpc-orchestration/**'
+          vpc-backoffice:
+            - 'DevTest/vpc-backoffice/**'
+        # run only if 'vpc-orchestration' files were changed
+      - name: Change in vpc-orchestration
+        if: steps.filter.outputs.vpc-orchestration == 'true'
+        run: echo "WORKDIR=DevTest/vpc-orchestration" >> $GITHUB_ENV
+      
+        # run only if 'vpc-backoffice' files were changed  
+      - name: change in vpc-backoffice
+        if: steps.filter.outputs.vpc-backoffice == 'true'
+        run: echo "WORKDIR=DevTest/vpc-backoffice" >> $GITHUB_ENV
+        
+      # Github Authentication with AWS using AssumeRole    
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::962491557115:role/OIDC-ASSUMEROLE-GITHUB-INFRA-CICD-DEVTEST
+          role-session-name: devtest-session
+          aws-region: eu-central-1
+           
+      # Setting up Terraform 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.4.4
+          terraform_wrapper: false
+    
+     # - name: GIT Config
+     #   run: |
+     #    git config --global url."https://${TOKEN}@github.com".insteadOf "https://github.com"
 
-        # run only if 'path1' files were changed
-      - name: path1 tests
-        if: steps.filter.outputs.path1 == 'true' 
-        run: echo "vic"
-        working-directory: ./DevTest/vic
-          
-      - name: path2 tests
-        if: steps.filter.outputs.path2 == 'true'
-        run: echo "eks"
-        working-directory: ./DevTest/eks
-        
-        
-        
-
+      # Run Terraform commands 
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: |
+          cd $WORKDIR
+          terraform init
+        
+      - name: Terraform Validate
+        id: validate
+        run: |
+          cd $WORKDIR
+          terraform validate -no-color
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -no-color
+        run: |
+          cd $WORKDIR
+          terraform plan -no-color
         
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        id: apply
+        run: |
+          cd $WORKDIR
+          terraform apply -auto-approve
